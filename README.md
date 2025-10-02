@@ -103,5 +103,3 @@ Refs: #123
 **Q: How to handle commits in early development?**  
 A: Pretend you’re already in production—consistency from the start helps.
 ```
-
-Do you want me to also **include the full FAQ section** (all Q&As from the site) in the MD file?
