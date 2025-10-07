@@ -1,0 +1,235 @@
+# CodeRabbit AI Configuration for HMU Full-Stack Application
+# This configuration optimizes CodeRabbit for a TypeScript/Node.js backend and React frontend
+
+# Global settings
+reviews:
+  # Enable comprehensive code reviews
+  enabled: true
+  
+  # Review settings
+  review:
+    # Focus on code quality, security, and best practices
+    focus:
+      - "code_quality"
+      - "security"
+      - "performance"
+      - "maintainability"
+      - "accessibility"
+    
+    # Language-specific settings
+    language:
+      typescript:
+        # Enable TypeScript-specific checks
+        enabled: true
+        # Focus on type safety and modern TS features
+        focus:
+          - "type_safety"
+          - "modern_typescript"
+          - "error_handling"
+      
+      javascript:
+        enabled: true
+        focus:
+          - "es6_features"
+          - "async_await"
+          - "error_handling"
+      
+      react:
+        enabled: true
+        focus:
+          - "hooks"
+          - "performance"
+          - "accessibility"
+          - "component_structure"
+
+  # Finishing touches
+  finishing_touches:
+    # Enable docstring generation
+    docstrings:
+      enabled: true
+      # Generate docstrings for public APIs and complex functions
+      focus:
+        - "public_apis"
+        - "complex_functions"
+        - "error_handlers"
+        - "middleware"
+    
+    # Enable test generation
+    tests:
+      enabled: true
+      # Focus on critical business logic and edge cases
+      focus:
+        - "business_logic"
+        - "edge_cases"
+        - "error_conditions"
+        - "api_endpoints"
+
+# Code generation settings
+code_generation:
+  # Docstring configuration
+  docstrings:
+    # Path-specific instructions for different parts of the codebase
+    path_instructions:
+      # Backend API routes - TSDoc format with comprehensive documentation
+      - path: "api-app/src/routes/**/*.ts"
+        instructions: |
+          Use TSDoc format with @param, @returns, @throws, and @example tags.
+          Document all route handlers with:
+          - Clear description of the endpoint's purpose
+          - Parameter descriptions with types
+          - Return value documentation
+          - Possible error conditions and status codes
+          - Example requests/responses for public APIs
+          Focus on API contract clarity and developer experience.
+      
+      # Backend services - Focus on business logic documentation
+      - path: "api-app/src/services/**/*.ts"
+        instructions: |
+          Use TSDoc format with @param, @returns, and @throws tags.
+          Document business logic functions with:
+          - Clear description of what the function does
+          - Input parameter validation requirements
+          - Return value structure and types
+          - Error conditions and when they occur
+          - Database interaction patterns
+          Focus on business logic clarity and maintainability.
+      
+      # Backend middleware - Focus on cross-cutting concerns
+      - path: "api-app/src/middleware/**/*.ts"
+        instructions: |
+          Use TSDoc format with @param, @returns, and @throws tags.
+          Document middleware functions with:
+          - Clear description of the middleware's purpose
+          - When and how it should be used
+          - Configuration options and their effects
+          - Error handling behavior
+          - Performance considerations
+          Focus on operational clarity and debugging.
+      
+      # Backend types and interfaces - Focus on API contracts
+      - path: "api-app/src/types.ts"
+        instructions: |
+          Use TSDoc format with @interface, @property, and @example tags.
+          Document type definitions with:
+          - Clear description of the data structure
+          - Property descriptions with types and constraints
+          - Usage examples and common patterns
+          - Validation requirements
+          - Relationship to other types
+          Focus on type safety and API contract clarity.
+      
+      # Frontend React components - JSDoc format for React
+      - path: "web-app/src/**/*.tsx"
+        instructions: |
+          Use JSDoc format with @param, @returns, and @example tags.
+          Document React components with:
+          - Clear description of the component's purpose
+          - Props documentation with types and defaults
+          - State management patterns
+          - Event handlers and their purposes
+          - Accessibility considerations
+          - Usage examples and common patterns
+          Focus on component reusability and developer experience.
+      
+      # Frontend utilities and hooks - Focus on reusability
+      - path: "web-app/src/**/*.ts"
+        instructions: |
+          Use JSDoc format with @param, @returns, and @example tags.
+          Document utility functions and custom hooks with:
+          - Clear description of functionality
+          - Parameter types and validation
+          - Return value structure
+          - Side effects and dependencies
+          - Usage examples
+          - Performance considerations
+          Focus on reusability and maintainability.
+
+  # Test generation configuration
+  tests:
+    # Path-specific test instructions
+    path_instructions:
+      # Backend API routes - Focus on endpoint testing
+      - path: "api-app/src/routes/**/*.ts"
+        instructions: |
+          Generate comprehensive API tests covering:
+          - Happy path scenarios for all endpoints
+          - Error conditions and edge cases
+          - Input validation testing
+          - Authentication and authorization (if applicable)
+          - Response format validation
+          - Status code verification
+          Use Jest and Supertest for HTTP testing.
+      
+      # Backend services - Focus on business logic testing
+      - path: "api-app/src/services/**/*.ts"
+        instructions: |
+          Generate unit tests covering:
+          - Business logic validation
+          - Database interaction mocking
+          - Error handling scenarios
+          - Edge cases and boundary conditions
+          - Data transformation logic
+          Use Jest with proper mocking strategies.
+      
+      # Frontend components - Focus on component testing
+      - path: "web-app/src/**/*.tsx"
+        instructions: |
+          Generate React component tests covering:
+          - Component rendering with different props
+          - User interaction testing
+          - State changes and side effects
+          - Accessibility testing
+          - Error boundary testing
+          Use React Testing Library and Jest.
+
+# Security and quality settings
+security:
+  # Enable security-focused reviews
+  enabled: true
+  focus:
+    - "injection_attacks"
+    - "authentication"
+    - "authorization"
+    - "data_validation"
+    - "cors_configuration"
+    - "error_handling"
+
+# Performance settings
+performance:
+  # Enable performance-focused reviews
+  enabled: true
+  focus:
+    - "database_queries"
+    - "api_response_times"
+    - "react_rendering"
+    - "bundle_size"
+    - "memory_usage"
+
+# Accessibility settings
+accessibility:
+  # Enable accessibility-focused reviews
+  enabled: true
+  focus:
+    - "semantic_html"
+    - "keyboard_navigation"
+    - "screen_reader_support"
+    - "color_contrast"
+    - "focus_management"
+
+# Custom instructions for the project
+custom_instructions: |
+  This is a full-stack TypeScript application with:
+  - Backend: Fastify + MongoDB + TypeScript
+  - Frontend: React + Vite + TypeScript
+  - Monorepo structure with Turbo for build orchestration
+  
+  Key considerations:
+  - Follow TypeScript best practices and strict typing
+  - Use proper error handling patterns throughout
+  - Maintain consistent API response formats
+  - Follow React best practices and hooks patterns
+  - Ensure proper separation of concerns
+  - Focus on code maintainability and readability
+  - Consider performance implications of all changes
+  - Maintain security best practices
+  - Ensure accessibility compliance

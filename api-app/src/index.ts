@@ -50,13 +50,13 @@ const startServer = async (): Promise<void> => {
     // Enhanced startup message
     const startupMessage = `
 ╔══════════════════════════════════════════════════════════════╗
-║                    🚀 HMU API Server                        ║
+║                    🚀 HMU API Server                         ║
 ╠══════════════════════════════════════════════════════════════╣
-║  📍 API Server:    http://localhost:${config.API_PORT}${' '.repeat(15 - config.API_PORT.toString().length)}║
-║  📊 Health Check:  http://localhost:${config.API_PORT}/health${' '.repeat(8 - config.API_PORT.toString().length)}║
-║  🌐 Frontend:      http://localhost:5173${' '.repeat(20)}║
-║  🗄️  Database:      ${config.DB_NAME}${' '.repeat(25 - config.DB_NAME.length)}║
-║  🌍 Environment:   ${process.env.NODE_ENV || 'development'}${' '.repeat(15 - (process.env.NODE_ENV || 'development').length)}║
+║  📍 API Server:    http://localhost:${config.API_PORT}${' '.repeat(15 - config.API_PORT.toString().length)}          ║
+║  📊 Health Check:  http://localhost:${config.API_PORT}/health${' '.repeat(8 - config.API_PORT.toString().length)}          ║
+║  🌐 Frontend:      http://localhost:5173${' '.repeat(20)} ║
+║  🗄️  Database:      ${config.DB_NAME}${' '.repeat(25 - config.DB_NAME.length)}                 ║
+║  🌍 Environment:   ${process.env.NODE_ENV || 'development'}${' '.repeat(15 - (process.env.NODE_ENV || 'development').length)}                           ║
 ╚══════════════════════════════════════════════════════════════╝
     `;
     

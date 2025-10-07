@@ -9,7 +9,7 @@ import { setupCors } from "./cors.js";
  *
  * @param fastify - The Fastify instance to configure middleware on
  */
-export function setupMiddleware(fastify: any): void {
+export function setupMiddleware(fastify: FastifyInstance): void {
   // Setup CORS
   setupCors(fastify);
   

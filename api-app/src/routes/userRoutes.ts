@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import type { CreateUserRequest, CreateUserResponse } from "../types.js";
+import type { CreateUserRequest, CreateUserResponse, User } from "../types.js";
 import { userService } from "../services/userService.js";
 
 /**
@@ -31,16 +31,15 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
     try {
       return await userService.createUser(request.body);
     } catch (error) {
-      reply.code(400);
-      throw error;
+      return reply.code(400).send({ error: (error as Error).message });
     }
   });
 
   // PUT /users/:id - Update user
-  fastify.put("/users/:id", async (request: FastifyRequest<{ 
+  fastify.put("/users/:id", async (request: FastifyRequest<{
     Params: { id: string }; 
     Body: { name?: string; email?: string } 
-  }>, reply: FastifyReply): Promise<any> => {
+  }>, reply: FastifyReply): Promise<User | { error: string }> => {
     try {
       const { id } = request.params;
       const user = await userService.updateUser(id, request.body);
@@ -52,8 +51,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
       
       return user;
     } catch (error) {
-      reply.code(400);
-      throw error;
+      return reply.code(400).send({ error: (error as Error).message });
     }
   });
 
@@ -70,8 +68,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
       
       return { message: "User deleted successfully" };
     } catch (error) {
-      reply.code(400);
-      throw error;
+      return reply.code(400).send({ error: (error as Error).message });
     }
   });
 }

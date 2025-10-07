@@ -12,31 +12,43 @@ import type { FastifyInstance, FastifyError } from "fastify";
  */
 export function setupErrorHandler(fastify: FastifyInstance): void {
   fastify.setErrorHandler((error: FastifyError, request, reply) => {
+    // Always log the full error for debugging
     fastify.log.error(error);
 
     // Handle validation errors
     if (error.validation) {
+      // Sanitize validation errors to only expose field and message
+      const sanitizedValidation = error.validation.map((validationError: any) => ({
+        field: validationError.instancePath || validationError.dataPath || 'unknown',
+        message: validationError.message || 'Invalid value'
+      }));
+
       reply.code(400).send({
         error: "Validation Error",
-        message: error.message,
-        details: error.validation,
+        message: "Request validation failed",
+        details: sanitizedValidation,
       });
       return;
     }
 
     // Handle custom errors
     if (error.statusCode) {
+      const isProduction = process.env.NODE_ENV === "production";
+      
       reply.code(error.statusCode).send({
         error: error.name || "Error",
-        message: error.message,
+        message: isProduction 
+          ? "An error occurred" 
+          : error.message,
       });
       return;
     }
 
     // Handle unexpected errors
+    const isProduction = process.env.NODE_ENV === "production";
     reply.code(500).send({
       error: "Internal Server Error",
-      message: process.env.NODE_ENV === "production" 
+      message: isProduction 
         ? "Something went wrong" 
         : error.message,
     });
