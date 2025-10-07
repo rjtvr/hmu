@@ -3,7 +3,9 @@ import { userRoutes } from "./userRoutes.js";
 import { healthRoutes } from "./healthRoutes.js";
 
 /**
- * Register all routes with the Fastify instance
+ * Registers application route modules on the provided Fastify instance.
+ *
+ * @param fastify - Fastify instance to register route modules on
  */
 export async function registerRoutes(fastify: any): Promise<void> {
   // Register route modules

@@ -1,6 +1,15 @@
 import type { FastifyInstance } from "fastify";
 import type { HealthResponse } from "../types.js";
 
+/**
+ * Registers health check routes on the provided Fastify instance.
+ *
+ * Registers:
+ * - GET /health: returns basic status, timestamp, and uptime.
+ * - GET /health/detailed: returns status, timestamp, uptime, memory usage (in MB), Node.js version, and platform.
+ *
+ * @param fastify - Fastify instance to register the routes on
+ */
 export async function healthRoutes(fastify: FastifyInstance): Promise<void> {
   // GET /health - Health check endpoint
   fastify.get("/health", async (): Promise<HealthResponse> => {

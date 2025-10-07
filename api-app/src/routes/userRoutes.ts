@@ -2,6 +2,11 @@ import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import type { CreateUserRequest, CreateUserResponse } from "../types.js";
 import { userService } from "../services/userService.js";
 
+/**
+ * Registers user-related REST endpoints on the provided Fastify instance.
+ *
+ * Adds handlers for: GET /users, GET /users/:id, POST /users, PUT /users/:id, and DELETE /users/:id.
+ */
 export async function userRoutes(fastify: FastifyInstance): Promise<void> {
   // GET /users - Get all users
   fastify.get("/users", async (): Promise<any[]> => {
