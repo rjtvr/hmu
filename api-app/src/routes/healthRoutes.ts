@@ -1,0 +1,32 @@
+import type { FastifyInstance } from "fastify";
+import type { HealthResponse } from "../types.js";
+
+export async function healthRoutes(fastify: FastifyInstance): Promise<void> {
+  // GET /health - Health check endpoint
+  fastify.get("/health", async (): Promise<HealthResponse> => {
+    return {
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    };
+  });
+
+  // GET /health/detailed - Detailed health check
+  fastify.get("/health/detailed", async (): Promise<any> => {
+    const memoryUsage = process.memoryUsage();
+    
+    return {
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      memory: {
+        rss: `${Math.round(memoryUsage.rss / 1024 / 1024)} MB`,
+        heapTotal: `${Math.round(memoryUsage.heapTotal / 1024 / 1024)} MB`,
+        heapUsed: `${Math.round(memoryUsage.heapUsed / 1024 / 1024)} MB`,
+        external: `${Math.round(memoryUsage.external / 1024 / 1024)} MB`,
+      },
+      nodeVersion: process.version,
+      platform: process.platform,
+    };
+  });
+}

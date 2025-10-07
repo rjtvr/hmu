@@ -1,16 +1,123 @@
-Here’s the structured **Markdown version** of the [Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) spec:
+# HMU - Full Stack Application
 
-```markdown
-# Conventional Commits 1.0.0
+A full-stack application with React frontend and Fastify backend.
 
-## Summary
-A lightweight convention for commit messages providing rules for explicit commit history.  
-It dovetails with [SemVer](https://semver.org) to describe **features**, **fixes**, and **breaking changes**.
+## Project Structure
 
-**Format:**
+```
+hmu/
+├── api-app/          # Fastify backend server
+├── web-app/          # React frontend application
+└── package.json      # Root package.json for managing both projects
 ```
 
-[optional scope]:
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Install dependencies for all projects:
+```bash
+pnpm run install:all
+```
+
+Or simply:
+```bash
+pnpm install
+```
+
+This will automatically install dependencies for all workspace packages (api-app and web-app) thanks to the pnpm workspace configuration.
+
+### Development
+
+Run both frontend and backend in development mode:
+```bash
+pnpm run dev
+```
+
+This will start:
+- Backend API server (typically on port 3000)
+- Frontend development server (typically on port 5173)
+
+**Powered by Turborepo** for optimal performance and caching!
+
+### Individual Project Commands
+
+#### Backend (API)
+```bash
+# Run backend only
+pnpm run dev:api
+# or
+cd api-app && pnpm run dev
+```
+
+#### Frontend (Web)
+```bash
+# Run frontend only
+pnpm run dev:web
+# or
+cd web-app && pnpm run dev
+```
+
+### Production
+
+Build and run in production mode:
+```bash
+# Build the frontend
+pnpm run build
+
+# Start both projects
+pnpm start
+```
+
+### Available Scripts
+
+- `pnpm run dev` - Start both frontend and backend in development mode (with Turbo)
+- `pnpm run build` - Build all projects for production (with Turbo caching)
+- `pnpm start` - Start both projects in production mode
+- `pnpm run lint` - Lint all projects
+- `pnpm run clean` - Clean all build artifacts and dependencies
+- `pnpm run install:all` - Install dependencies for all projects
+
+### Turbo Benefits
+
+- **Intelligent Caching**: Only rebuilds what changed
+- **Parallel Execution**: Runs tasks in parallel when possible
+- **Dependency Management**: Automatically handles task dependencies
+- **Remote Caching**: Share cache across team members (when configured)
+- **Better Performance**: Significantly faster than traditional tools
+
+## Technology Stack
+
+### Backend
+- Fastify - Fast and low overhead web framework
+- TypeScript - Type safety and better development experience
+- MongoDB - Database
+- Node.js - Runtime environment
+
+### Frontend
+- React 19 - UI library
+- TypeScript - Type safety
+- Vite - Build tool and dev server
+- ESLint - Code linting
+
+## Development Workflow
+
+1. Make sure both projects are running: `pnpm run dev`
+2. Backend API will be available at `http://localhost:3000`
+3. Frontend will be available at `http://localhost:5173`
+4. Both projects will hot-reload when you make changes
+
+# Conventional Commits v1.0.0
+
+## Format
+```
+
+<type>[optional scope]: <description>
 
 [optional body]
 
@@ -18,90 +125,42 @@ It dovetails with [SemVer](https://semver.org) to describe **features**, **fixes
 
 ```
 
-### Structural Elements
-1. **fix:** patches a bug (→ PATCH in SemVer).  
-2. **feat:** introduces a feature (→ MINOR in SemVer).  
-3. **BREAKING CHANGE:** via footer or `!` after type/scope (→ MAJOR in SemVer).  
-4. Other types allowed (e.g., `build:`, `chore:`, `ci:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`).  
-5. Footers may follow [git trailer format](https://git-scm.com/docs/git-interpret-trailers).
+### Types
+- **feat:** new feature (→ MINOR)
+- **fix:** bug fix (→ PATCH)
+- **BREAKING CHANGE:** major API change (→ MAJOR)
+- Other: `build`, `chore`, `ci`, `docs`, `style`, `refactor`, `perf`, `test`
 
 ---
 
 ## Examples
-- **Breaking change footer**
 ```
 
-feat: allow provided config object to extend other configs
-
-BREAKING CHANGE: `extends` key in config file is now used
-
-```
-- **Breaking change via `!`**
-```
-
-feat!: send an email to the customer when a product is shipped
-
-```
-- **Breaking change with scope**
-```
-
-feat(api)!: send an email to the customer when a product is shipped
-
-```
-- **No body**
-```
-
+feat(parser): add array parsing
+fix: prevent racing of requests
+feat!: send email to customers on shipment
 docs: correct spelling of CHANGELOG
 
 ```
-- **Scope usage**
-```
-
-feat(lang): add Polish language
-
-```
-- **Multi-body + multiple footers**
-```
-
-fix: prevent racing of requests
-
-Introduce request id and dismiss older responses.
-
-Reviewed-by: Z
-
-Refs: #123
-
-```
 
 ---
 
-## Specification
-1. Commits **MUST** be prefixed with a type.  
-2. `feat` → new feature.  
-3. `fix` → bug fix.  
-4. Scope is **optional** (noun in `()`).  
-5. Description (short summary) follows `:`.  
-6. Body is optional, starts after blank line.  
-7. Footers allowed (token + `: value`).  
-8. Footer tokens use `-` instead of spaces (e.g., `Acked-by`).  
-9. `BREAKING CHANGE` may be in prefix (`!`) or footer.  
-10. `BREAKING-CHANGE` = `BREAKING CHANGE`.  
-11. Case-insensitive except `BREAKING CHANGE`.
+## Rules
+1. Commit **MUST** start with a type.  
+2. Scope (optional) in parentheses.  
+3. Description follows `:` and space.  
+4. Body optional, one blank line after description.  
+5. Footer optional, formatted as `token: value`.  
+6. `BREAKING CHANGE:` signals a major version change.  
+7. `!` after type/scope also marks a breaking change.  
+8. Case-insensitive except `BREAKING CHANGE`.  
+9. `BREAKING-CHANGE` = `BREAKING CHANGE`.
 
 ---
 
-## Why Use Conventional Commits
+## Benefits
 - Auto-generate **CHANGELOGs**  
-- Auto-determine **semantic version bumps**  
-- Communicate change intent clearly  
-- Trigger build/publish pipelines  
-- Lower contribution barrier with structured history
-
----
-
-## FAQ
-**Q: How to handle commits in early development?**  
-A: Pretend you’re already in production—consistency from the start helps.
-```
-
-Do you want me to also **include the full FAQ section** (all Q&As from the site) in the MD file?
+- Auto-determine **SemVer bumps**  
+- Clearer communication of intent  
+- Enable **CI/CD triggers**  
+- Simplify contributor onboarding
