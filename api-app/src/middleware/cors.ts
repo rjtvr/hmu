@@ -1,7 +1,9 @@
 import type { FastifyInstance } from "fastify";
 
 /**
- * CORS middleware configuration
+ * Configures CORS on the provided Fastify instance.
+ *
+ * Registers the Fastify CORS plugin with rules that allow requests with no origin, permit origins for localhost and 127.0.0.1 on ports 3000 and 5173, and enable credentials support. Requests from origins not in the allowed list are rejected by the plugin.
  */
 export function setupCors(fastify: FastifyInstance): void {
   fastify.register(import("@fastify/cors"), {

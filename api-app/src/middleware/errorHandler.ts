@@ -1,7 +1,14 @@
 import type { FastifyInstance, FastifyError } from "fastify";
 
 /**
- * Global error handler middleware
+ * Attach a global Fastify error handler that logs errors and sends standardized HTTP responses.
+ *
+ * The handler logs every error and responds based on the error shape:
+ * - If `error.validation` is present: responds 400 with `error`, `message`, and `details`.
+ * - Else if `error.statusCode` is present: responds with that status code and a payload containing `error` (name) and `message`.
+ * - Otherwise: responds 500 with `error: "Internal Server Error"` and a message that is `"Something went wrong"` in production or the original error message otherwise.
+ *
+ * @param fastify - The Fastify instance on which to register the error handler
  */
 export function setupErrorHandler(fastify: FastifyInstance): void {
   fastify.setErrorHandler((error: FastifyError, request, reply) => {
